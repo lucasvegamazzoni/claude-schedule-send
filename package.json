@@ -1,0 +1,70 @@
+{
+  "name": "claude-schedule-send",
+  "displayName": "Claude Schedule Send",
+  "description": "Schedule a message to the Claude Code CLI in the integrated terminal — like schedule send in email.",
+  "version": "0.1.0",
+  "publisher": "lucas-local",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "claudeSchedule.schedule",
+        "title": "Schedule Message",
+        "category": "Claude"
+      },
+      {
+        "command": "claudeSchedule.scheduleFromEditor",
+        "title": "Schedule Message from Editor",
+        "category": "Claude"
+      },
+      {
+        "command": "claudeSchedule.list",
+        "title": "Scheduled Messages",
+        "category": "Claude"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "claudeSchedule.schedule",
+        "key": "ctrl+alt+enter",
+        "mac": "cmd+alt+enter"
+      }
+    ],
+    "configuration": {
+      "title": "Claude Schedule Send",
+      "properties": {
+        "claudeSchedule.missedGraceMinutes": {
+          "type": "number",
+          "default": 10,
+          "description": "If a message is overdue by more than this (VS Code closed, laptop asleep), ask before sending instead of sending it late."
+        },
+        "claudeSchedule.enableKeybindingInTerminal": {
+          "type": "boolean",
+          "default": true,
+          "description": "Add the Schedule Message command to terminal.integrated.commandsToSkipShell so the keybinding works while the terminal is focused."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p .",
+    "test": "tsc -p . && node --test test/*.test.js",
+    "package": "vsce package --allow-missing-repository"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "@types/vscode": "^1.90.0",
+    "@vscode/vsce": "^3.9.2",
+    "typescript": "^5.9.3"
+  }
+}
